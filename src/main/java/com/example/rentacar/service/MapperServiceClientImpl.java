@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.rentacar.dto.ClientDto;
 import com.example.rentacar.model.entitity.ClientEntity;
 
-public class MapperServiceClientImpl implements MapperServiceClient<ClientDto, ClientEntity>{
+public class MapperServiceClientImpl implements MapperService<ClientDto, ClientEntity>{
 
 	@Override
 	public ClientDto map(ClientEntity gdoDto) {
