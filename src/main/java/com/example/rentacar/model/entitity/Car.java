@@ -1,7 +1,6 @@
-package com.example.rentacar.model.enttity;
+package com.example.rentacar.model.entitity;
 
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -39,7 +38,7 @@ public class Car {
 	@OneToMany(mappedBy = "car")
 	private Set<Rent> carRents = new TreeSet<>();
 	
-	@ManyToMany(mappedBy = "car", fetch = FetchType.LAZY)
-	private Set<RatePrice> carRatePrices = new TreeSet<>();
+	@ManyToMany(mappedBy = "cars", fetch = FetchType.LAZY)
+	private Set<RatePrice> ratePrices = new TreeSet<>();
 
 }

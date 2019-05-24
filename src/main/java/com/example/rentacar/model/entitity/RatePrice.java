@@ -1,4 +1,4 @@
-package com.example.rentacar.model.enttity;
+package com.example.rentacar.model.entitity;
 
 
 
@@ -25,17 +25,17 @@ public class RatePrice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_RATEP_RICE")
+	@Column(name = "ID_RATE")
 	private Integer idRatePrice;
 	
-	@Column(name = "START_RATE_PRICE")
+	@Column(name = "START_RATE")
 	private Date startRatePrice;
 	
-	@Column(name = "END_RATE_PRICE")
+	@Column(name = "END_RATE")
 	private Date endRatePrice;
 	
 	@ManyToMany
-	private Set<Car> ratePriceCars = new TreeSet<>();
+	private Set<Car> cars = new TreeSet<>();
 	
 	
 }

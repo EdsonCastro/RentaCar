@@ -1,4 +1,4 @@
-package com.example.rentacar.model.enttity;
+package com.example.rentacar.model.entitity;
 
 
 import java.util.Date;
