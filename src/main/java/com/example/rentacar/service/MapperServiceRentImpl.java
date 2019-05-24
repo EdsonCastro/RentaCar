@@ -2,9 +2,12 @@ package com.example.rentacar.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.example.rentacar.dto.RentDto;
 import com.example.rentacar.model.entitity.RentEntity;
 
+@Component
 public class MapperServiceRentImpl implements MapperService<RentDto, RentEntity>{
 
 	@Override
