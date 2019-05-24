@@ -1,43 +1,41 @@
 package com.example.rentacar.model.entitity;
 
 
-
 import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "RATE_PRICE")
-public class RatePrice {
-
+@Table(name = "RENT")
+public class RentEntity {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_RATE")
-	private Integer idRatePrice;
+	@Column(name = "ID_RENT")
+	private Integer idRent;
 	
-	@Column(name = "START_RATE")
-	private Date startRatePrice;
+	@Column(name = "START_RENT")
+	private Date startRent;
 	
-	@Column(name = "END_RATE")
-	private Date endRatePrice;
+	@Column(name = "END_RENT")
+	private Date endRent;
 	
-	@ManyToMany
-	private Set<Car> cars = new TreeSet<>();
-	
-	
-}
+	@ManyToOne	
+	private ClientEntity client;
 
+	@ManyToOne
+	private CarEntity car;
+	
+
+}
 

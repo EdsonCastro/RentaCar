@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CAR")
-public class Car {
+public class CarEntity {
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_CAR")
@@ -36,9 +36,9 @@ public class Car {
 	private String typeCar;
 
 	@OneToMany(mappedBy = "car")
-	private Set<Rent> carRents = new TreeSet<>();
+	private Set<RentEntity> carRents = new TreeSet<>();
 	
 	@ManyToMany(mappedBy = "cars", fetch = FetchType.LAZY)
-	private Set<RatePrice> ratePrices = new TreeSet<>();
+	private Set<RatePriceEntity> ratePrices = new TreeSet<>();
 
 }
