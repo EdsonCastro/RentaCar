@@ -33,10 +33,12 @@ public class ClientController {
 		return clientsDto;
 	}*/
 	
-	/*@GetMapping("{id}")
-	public ClientDto findOne(@PathVariable("id") Integer id){		
-		return null;	
-	}*/
+	@GetMapping("/{id}")
+	public ClientDto findOne(@PathVariable("id") Integer id){
+		ClientEntity clientEntity = clientRepository.getOne(id);
+		ClientDto clientDto = mapperServiceDtoEntity.map(clientEntity);
+		return clientDto;
+	}
 	
 	@PostMapping()
 	public ClientDto post(@RequestBody ClientDto clientDto){

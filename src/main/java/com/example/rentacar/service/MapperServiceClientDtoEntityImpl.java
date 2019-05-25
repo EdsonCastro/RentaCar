@@ -13,7 +13,8 @@ public class MapperServiceClientDtoEntityImpl implements MapperService<ClientDto
 	@Override
 	public ClientDto map(ClientEntity gdoEntity) {
 		ClientDto clientDto = new ClientDto();
-		gdoEntity.setNameClient(clientDto.getNameClient());		
+		clientDto.setIdClient(gdoEntity.getIdclient());
+		clientDto.setNameClient(gdoEntity.getNameClient());		
 		return clientDto;
 	}
 	
