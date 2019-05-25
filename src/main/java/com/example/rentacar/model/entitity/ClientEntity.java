@@ -28,5 +28,6 @@ public class ClientEntity {
 	
 	@OneToMany(mappedBy = "client")
 	private Set<RentEntity> clientsRents = new TreeSet<>();
+
 	
 }
