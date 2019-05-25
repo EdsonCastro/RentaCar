@@ -2,6 +2,9 @@ package com.example.rentacar.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +61,18 @@ public class ClientController {
 		clientDto.setIdClient(clientEntity.getIdclient());
 		clientDto.setNameClient(clientEntity.getNameClient());			
 		return clientDto;
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") Integer id){
+		ClientEntity clientEntity = clientRepository.getOne(id);
+		if (clientEntity == null){
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		}
+		else{
+			clientRepository.delete(clientEntity);
+			return new ResponseEntity<String>(HttpStatus.OK);			
+		}
 	}
 	
 	
