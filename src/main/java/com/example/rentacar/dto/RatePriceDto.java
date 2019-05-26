@@ -1,5 +1,7 @@
 package com.example.rentacar.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,4 +10,14 @@ import lombok.Setter;
 public class RatePriceDto {
 	
 	private Integer idRatePrice;
+	
+	private Integer priceRate;
+	
+	private Date startRate;
+	
+	private Date endRate;
+	
+	private Boolean activeRate;
+	
+	private Integer idCoche;
 }

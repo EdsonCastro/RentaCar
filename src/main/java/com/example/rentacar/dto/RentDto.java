@@ -11,9 +11,13 @@ public class RentDto {
 
 	private Integer idRent;
 	
-	private Integer price;
+	private Integer priceRent;
 	
 	private Date startRent;
 	
-	private Date endRent;	
+	private Date endRent;
+	
+	private Integer idClient;
+	
+	private Integer idCoche;
 }

@@ -18,7 +18,7 @@ public class MapperServiceRentDtoEntityImpl implements MapperService<RentDto, Re
 	public RentDto map(RentEntity rentEntity) {
 		RentDto rentDto = new RentDto();
 		rentDto.setIdRent(rentEntity.getIdRent());
-		rentDto.setPrice(rentEntity.getPriceRent());
+		rentDto.setPriceRent(rentEntity.getPriceRent());
 		rentDto.setStartRent(rentEntity.getStartRent());
 		rentDto.setEndRent(rentEntity.getEndRent());
 		return rentDto;
@@ -33,7 +33,7 @@ public class MapperServiceRentDtoEntityImpl implements MapperService<RentDto, Re
 			rentEntity = iterator.next();
 			RentDto rentDto = new RentDto();
 			rentDto.setIdRent(rentEntity.getIdRent());
-			rentDto.setPrice(rentEntity.getPriceRent());
+			rentDto.setPriceRent(rentEntity.getPriceRent());
 			rentDto.setStartRent(rentEntity.getStartRent());
 			rentDto.setEndRent(rentEntity.getEndRent());
 			rentDtoList.add(rentDto);			

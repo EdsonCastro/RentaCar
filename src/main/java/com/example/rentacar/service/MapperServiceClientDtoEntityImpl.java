@@ -35,5 +35,4 @@ public class MapperServiceClientDtoEntityImpl implements MapperService<ClientDto
 		}
 		return clientDtoList;
 	}
-
 }

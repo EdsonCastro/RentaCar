@@ -53,7 +53,7 @@ public class ClientController {
 		return clientDto;
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public ClientDto put(@RequestBody ClientDto clientDto){
 		ClientEntity clientEntity = clientRepository.getOne(clientDto.getIdClient());
 		clientEntity.setNameClient(clientDto.getNameClient());

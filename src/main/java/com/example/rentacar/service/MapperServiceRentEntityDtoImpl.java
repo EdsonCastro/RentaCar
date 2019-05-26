@@ -13,7 +13,7 @@ public class MapperServiceRentEntityDtoImpl implements MapperService<RentEntity,
 	@Override
 	public RentEntity map(RentDto rentDto) {
 		RentEntity rentEntity = new RentEntity();	
-		rentEntity.setPriceRent(rentDto.getPrice());
+		rentEntity.setPriceRent(rentDto.getPriceRent());
 		rentEntity.setStartRent(rentDto.getStartRent());
 		rentEntity.setEndRent(rentDto.getEndRent());	
 		return rentEntity;
@@ -28,7 +28,7 @@ public class MapperServiceRentEntityDtoImpl implements MapperService<RentEntity,
 		while(iterator.hasNext()){
 			rentDto = iterator.next();
 			RentEntity rentEntity = new RentEntity();
-			rentEntity.setPriceRent(rentDto.getPrice());
+			rentEntity.setPriceRent(rentDto.getPriceRent());
 			rentEntity.setStartRent(rentDto.getStartRent());
 			rentEntity.setEndRent(rentDto.getEndRent());
 			rentEntityList.add(rentEntity);

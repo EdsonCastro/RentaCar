@@ -28,6 +28,12 @@ public class RatePriceEntity {
 	@Column(name = "ID_RATE")
 	private Integer idRatePrice;
 	
+	@Column(name = "PRICE_RATE")
+	private Integer priceRate;
+	
+	@Column(name = "ACTIVE_RATE")
+	private Boolean activeRate;
+	
 	@Column(name = "START_RATE")
 	private Date startRatePrice;
 	

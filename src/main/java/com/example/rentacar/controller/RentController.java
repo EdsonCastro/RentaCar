@@ -48,16 +48,16 @@ public class RentController {
 	public RentDto post(@RequestBody RentDto rentDto){
 		RentEntity rentEntity = mapperServiceEntityDto.map(rentDto);
 		rentRepository.saveAndFlush((RentEntity) rentEntity);
-		rentDto.setPrice(rentEntity.getPriceRent());
+		rentDto.setPriceRent(rentEntity.getPriceRent());
 		rentDto.setStartRent(rentEntity.getStartRent());
-		rentDto.setEndRent(rentEntity.getEndRent());		
+		rentDto.setEndRent(rentEntity.getEndRent());	
 		return rentDto;
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public RentDto put(@RequestBody RentDto rentDto){
 		RentEntity rentEntity = rentRepository.getOne(rentDto.getIdRent());
-		rentEntity.setPriceRent(rentDto.getPrice());
+		rentEntity.setPriceRent(rentDto.getPriceRent());
 		rentEntity.setStartRent(rentDto.getStartRent());
 		rentEntity.setEndRent(rentDto.getEndRent());				
 		rentRepository.saveAndFlush((RentEntity) rentEntity);	
@@ -72,7 +72,7 @@ public class RentController {
 		}
 		else{
 			rentRepository.delete(rentEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);		
+			return new ResponseEntity<String>(HttpStatus.OK);
 		}
 	}
 	
