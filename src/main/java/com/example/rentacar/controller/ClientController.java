@@ -30,12 +30,12 @@ public class ClientController {
 	@Autowired
 	private MapperService<ClientEntity, ClientDto> mapperServiceEntityDto;
 	
-	/*@GetMapping
-	public List greeting(@RequestParam(name = "name", defaultValue = "")String name){		
-		List<ClientEntity> clientsEntity = clientRepository.findAll();
-		List<ClientDto> clientsDto = mapperServiceDtoEntity.map(clientsEntity);
-		return clientsDto;
-	}*/
+	@GetMapping("/findAll")
+	public List findAll(){
+		List <ClientEntity> clientEntityList = clientRepository.findAll();
+		List <ClientDto> clientDtoList = mapperServiceDtoEntity.map(clientEntityList);
+		return clientDtoList;
+	}
 	
 	@GetMapping("/{id}")
 	public ClientDto findOne(@PathVariable("id") Integer id){
@@ -71,7 +71,7 @@ public class ClientController {
 		}
 		else{
 			clientRepository.delete(clientEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);			
+			return new ResponseEntity<String>(HttpStatus.OK);		
 		}
 	}
 	

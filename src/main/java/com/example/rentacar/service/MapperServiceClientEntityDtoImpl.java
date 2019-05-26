@@ -1,5 +1,6 @@
 package com.example.rentacar.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,18 +12,25 @@ import com.example.rentacar.model.entitity.ClientEntity;
 public class MapperServiceClientEntityDtoImpl implements MapperService<ClientEntity, ClientDto>{
 
 	@Override
-	public ClientEntity map(ClientDto gdoDto) {
+	public ClientEntity map(ClientDto clientDto) {
 		ClientEntity clientEntity = new ClientEntity();
-		clientEntity.setNameClient(gdoDto.getNameClient());		
+		clientEntity.setNameClient(clientDto.getNameClient());		
 		return clientEntity;
 	}
 
 	@Override
-	public List<ClientEntity> map(List<ClientDto> gdoDtoList) {
-		List<ClientEntity> clientEntityList = null;
-		ClientEntity clientEntity = new ClientEntity();
-		clientEntity.setNameClient("hola");
-		clientEntityList.add(clientEntity);
+	public List<ClientEntity> map(List<ClientDto> clientDtoList) {
+		List<ClientEntity> clientEntityList = null;		
+		ClientDto clientDto = new ClientDto();
+		Iterator<ClientDto> iterator = clientDtoList.iterator();
+		clientDto = iterator.next();
+		while(iterator.hasNext()){
+			clientDto = iterator.next();
+			ClientEntity clientEntity = new ClientEntity();
+			clientEntity.setIdclient(clientDto.getIdClient());
+			clientEntity.setNameClient(clientDto.getNameClient());
+			clientEntityList.add(clientEntity);
+		}
 		return clientEntityList;
 	}
 
