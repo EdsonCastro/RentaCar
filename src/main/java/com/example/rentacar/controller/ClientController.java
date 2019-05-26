@@ -31,7 +31,7 @@ public class ClientController {
 	private MapperService<ClientEntity, ClientDto> mapperServiceEntityDto;
 	
 	@GetMapping("/findAll")
-	public List findAll(){
+	public List<ClientDto> findAll(){
 		List <ClientEntity> clientEntityList = clientRepository.findAll();
 		List <ClientDto> clientDtoList = mapperServiceDtoEntity.map(clientEntityList);
 		return clientDtoList;
@@ -57,9 +57,7 @@ public class ClientController {
 	public ClientDto put(@RequestBody ClientDto clientDto){
 		ClientEntity clientEntity = clientRepository.getOne(clientDto.getIdClient());
 		clientEntity.setNameClient(clientDto.getNameClient());
-		clientRepository.saveAndFlush((ClientEntity) clientEntity);
-		clientDto.setIdClient(clientEntity.getIdclient());
-		clientDto.setNameClient(clientEntity.getNameClient());			
+		clientRepository.saveAndFlush((ClientEntity) clientEntity);		
 		return clientDto;
 	}
 	
@@ -74,6 +72,13 @@ public class ClientController {
 			return new ResponseEntity<String>(HttpStatus.OK);		
 		}
 	}
-	
+
+	//poner bien para consulta fixme
+	@GetMapping("/{id}/Rents")
+	public List<ClientDto> findAllRents(@PathVariable("id") Integer id){
+		List <ClientEntity> clientEntityList = clientRepository.findRentsClient(id);
+		List <ClientDto> clientDtoList = mapperServiceDtoEntity.map(clientEntityList);
+		return clientDtoList;
+	}	
 	
 }

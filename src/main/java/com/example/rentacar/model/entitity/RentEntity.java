@@ -24,6 +24,9 @@ public class RentEntity {
 	@Column(name = "ID_RENT")
 	private Integer idRent;
 	
+	@Column(name = "PRICE_RENT")
+	private Integer priceRent;
+	
 	@Column(name = "START_RENT")
 	private Date startRent;
 	
