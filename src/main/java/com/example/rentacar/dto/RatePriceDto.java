@@ -17,7 +17,7 @@ public class RatePriceDto {
 	
 	private Date endRate;
 	
-	private Boolean activeRate;
+	private Integer activeRate;
 	
 	private Integer idCoche;
 }

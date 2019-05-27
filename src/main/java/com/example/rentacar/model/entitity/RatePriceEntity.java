@@ -32,7 +32,7 @@ public class RatePriceEntity {
 	private Integer priceRate;
 	
 	@Column(name = "ACTIVE_RATE")
-	private Boolean activeRate;
+	private Integer activeRate;
 	
 	@Column(name = "START_RATE")
 	private Date startRatePrice;

@@ -1,10 +1,13 @@
 package com.example.rentacar.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.example.rentacar.dto.RentDto;
 import org.springframework.stereotype.Component;
+
+import com.example.rentacar.model.entitity.RatePriceEntity;
 import com.example.rentacar.model.entitity.RentEntity;
 
 @Component
@@ -21,7 +24,7 @@ public class MapperServiceRentEntityDtoImpl implements MapperService<RentEntity,
 
 	@Override
 	public List<RentEntity> map(List<RentDto> rentDtoList) {
-		List<RentEntity> rentEntityList = null;		
+		List<RentEntity> rentEntityList = new ArrayList<RentEntity>();		
 		RentDto rentDto = new RentDto();
 		Iterator<RentDto> iterator = rentDtoList.iterator();
 		rentDto = iterator.next();

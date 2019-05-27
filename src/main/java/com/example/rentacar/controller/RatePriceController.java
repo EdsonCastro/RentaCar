@@ -52,6 +52,7 @@ public class RatePriceController {
 	public RatePriceDto post(@RequestBody RatePriceDto ratePriceDto){
 		RatePriceEntity ratePriceEntity = mapperServiceEntityDto.map(ratePriceDto);
 		ratePriceRepository.saveAndFlush((RatePriceEntity) ratePriceEntity);
+		ratePriceRepository.saveOnRatePricesCars(ratePriceDto.getIdRatePrice(), ratePriceDto.getIdCoche());
 		ratePriceDto.setIdRatePrice(ratePriceEntity.getIdRatePrice());
 		ratePriceDto.setPriceRate(ratePriceEntity.getPriceRate());
 		ratePriceDto.setStartRate(ratePriceEntity.getStartRatePrice());

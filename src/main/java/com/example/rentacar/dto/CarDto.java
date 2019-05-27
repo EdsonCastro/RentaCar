@@ -9,4 +9,10 @@ import lombok.Setter;
 public class CarDto {
 
 	private Integer idCar;
+	
+	private String licenseCar;
+	
+	private String nameCar;
+	
+	private String typeCar;
 }
