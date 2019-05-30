@@ -7,8 +7,10 @@ import lombok.Setter;
 @Setter
 public class ClientDto {
 
-	private Integer idClient;
-	
-	private String nameClient;
+	private Integer id;
+
+	private String dni;
+
+	private String name;
 	
 }

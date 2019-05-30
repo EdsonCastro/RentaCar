@@ -1,4 +1,4 @@
-package com.example.rentacar.model.entitity;
+package com.example.rentacar.entitity;
 
 
 import java.util.Set;

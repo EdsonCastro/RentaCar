@@ -1,4 +1,4 @@
-package com.example.rentacar.service;
+package com.example.rentacar.component;
 
 import java.util.List;
 

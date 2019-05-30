@@ -1,4 +1,4 @@
-package com.example.rentacar.model.entitity;
+package com.example.rentacar.entitity;
 
 
 
@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class RatePriceEntity {
 	@Column(name = "END_RATE")
 	private Date endRatePrice;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<CarEntity> cars = new TreeSet<>();
 	
 	

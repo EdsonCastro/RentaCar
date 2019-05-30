@@ -1,4 +1,4 @@
-package com.example.rentacar.service;
+package com.example.rentacar.component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.example.rentacar.dto.RatePriceDto;
-import com.example.rentacar.model.entitity.RatePriceEntity;
+import com.example.rentacar.entitity.RatePriceEntity;
 
 @Component
 public class MapperServiceRatePriceEntityDtoImpl implements MapperService<RatePriceEntity, RatePriceDto> {
@@ -15,7 +15,6 @@ public class MapperServiceRatePriceEntityDtoImpl implements MapperService<RatePr
 	@Override
 	public RatePriceEntity map(RatePriceDto ratePriceDto) {
 		RatePriceEntity ratePriceEntity = new RatePriceEntity();
-		ratePriceEntity.setIdRatePrice(ratePriceDto.getIdRatePrice());
 		ratePriceEntity.setPriceRate(ratePriceDto.getPriceRate());
 		ratePriceEntity.setStartRatePrice(ratePriceDto.getStartRate());
 		ratePriceEntity.setEndRatePrice(ratePriceDto.getEndRate());				
@@ -30,7 +29,6 @@ public class MapperServiceRatePriceEntityDtoImpl implements MapperService<RatePr
 		while(iterator.hasNext()){	
 			ratePriceDto = iterator.next();
 			RatePriceEntity ratePriceEntity = new RatePriceEntity();
-			ratePriceEntity.setIdRatePrice(ratePriceDto.getIdRatePrice());
 			ratePriceEntity.setPriceRate(ratePriceDto.getPriceRate());
 			ratePriceEntity.setStartRatePrice(ratePriceDto.getStartRate());
 			ratePriceEntity.setEndRatePrice(ratePriceDto.getEndRate());

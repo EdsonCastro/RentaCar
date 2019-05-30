@@ -1,4 +1,4 @@
-package com.example.rentacar.service;
+package com.example.rentacar.component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.example.rentacar.dto.ClientDto;
 import com.example.rentacar.dto.RatePriceDto;
-import com.example.rentacar.model.entitity.ClientEntity;
-import com.example.rentacar.model.entitity.RatePriceEntity;
+import com.example.rentacar.entitity.ClientEntity;
+import com.example.rentacar.entitity.RatePriceEntity;
 
 @Component
 public class MapperServiceRatePriceDtoEntityImpl implements MapperService<RatePriceDto, RatePriceEntity> {

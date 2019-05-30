@@ -1,4 +1,4 @@
-package com.example.rentacar.model.entitity;
+package com.example.rentacar.entitity;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,19 +15,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "CLIENT")
+@Table (name = "CLIENT")
 public class ClientEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_CLIENT")
-	private Integer idclient;
-	
-	@Column(name = "NAME_CLIENT")
-	private String nameClient;
+	private Integer id;
+
+	private String dni;
+
+	private String name;
 	
 	@OneToMany(mappedBy = "client")
 	private Set<RentEntity> clientsRents = new TreeSet<>();
-
-	
 }

@@ -1,6 +1,7 @@
 package com.example.rentacar.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,65 +15,87 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.rentacar.component.MapperService;
 import com.example.rentacar.dao.RentRepository;
+import com.example.rentacar.dto.ClientDto;
 import com.example.rentacar.dto.RentDto;
-import com.example.rentacar.model.entitity.RentEntity;
-import com.example.rentacar.service.MapperService;
+import com.example.rentacar.entitity.ClientEntity;
+import com.example.rentacar.entitity.RentEntity;
+import com.example.rentacar.services.RentService;
 
 @RestController
 @RequestMapping("/rent")
 public class RentController {
 
 	@Autowired
-	private RentRepository rentRepository;	
+	private RentService rentService;
+	
 	@Autowired
 	private MapperService<RentDto, RentEntity> mapperServiceDtoEntity;
 	@Autowired
 	private MapperService<RentEntity, RentDto> mapperServiceEntityDto;
 	
-	@GetMapping("/findAll")
+	@GetMapping()
 	public List<RentDto> findAll(){
-		List <RentEntity> rentEntityList = rentRepository.findAll();
+		List <RentEntity> rentEntityList = rentService.findAllRents();
 		List <RentDto> rentDtoList = mapperServiceDtoEntity.map(rentEntityList);
 		return rentDtoList;
 	}
 	
 	@GetMapping("/{id}")
 	public RentDto findOne(@PathVariable("id") Integer id){
-		RentEntity rentEntity = rentRepository.getOne(id);
-		RentDto rentDto = mapperServiceDtoEntity.map(rentEntity);
-		return rentDto;
+		RentDto rentDto = new RentDto();
+		Optional<RentEntity> optionalRentEntity = rentService.findRentId(id);			
+		if (optionalRentEntity.isPresent())
+		{
+			RentEntity rentEntity = optionalRentEntity.get(); 
+			rentDto = mapperServiceDtoEntity.map(rentEntity);
+		}
+		return rentDto;			
 	}
 	
+	
 	@PostMapping()
-	public RentDto post(@RequestBody RentDto rentDto){
-		RentEntity rentEntity = mapperServiceEntityDto.map(rentDto);
-		rentRepository.saveAndFlush((RentEntity) rentEntity);
-		rentDto.setPriceRent(rentEntity.getPriceRent());
-		rentDto.setStartRent(rentEntity.getStartRent());
-		rentDto.setEndRent(rentEntity.getEndRent());	
-		return rentDto;
+	public ResponseEntity<String> post(@RequestBody RentDto rentDto){
+	Optional<RentEntity> optionalRentEntity = rentService.findRentId(rentDto.getId());	
+		if (!optionalRentEntity.isPresent())
+		{		
+			RentEntity rentEntity = new RentEntity();
+			rentEntity = mapperServiceEntityDto.map(rentDto);
+			rentService.saveRent(rentEntity);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<String>(HttpStatus.FOUND);
 	}
 	
 	@PutMapping
-	public RentDto put(@RequestBody RentDto rentDto){
-		RentEntity rentEntity = rentRepository.getOne(rentDto.getIdRent());
-		rentEntity.setPriceRent(rentDto.getPriceRent());
-		rentEntity.setStartRent(rentDto.getStartRent());
-		rentEntity.setEndRent(rentDto.getEndRent());				
-		rentRepository.saveAndFlush((RentEntity) rentEntity);	
-		return rentDto;
+	public ResponseEntity<String> put(@RequestBody RentDto rentDto){
+	Optional<RentEntity> optionalRentEntity = rentService.findRentId(rentDto.getId());	
+		if (!optionalRentEntity.isPresent())
+		{		
+			RentEntity rentEntity = optionalRentEntity.get();
+			rentService.deleteRent(rentEntity);
+			rentEntity = mapperServiceEntityDto.map(rentDto);
+			rentService.saveRent(rentEntity);	
+			return new ResponseEntity<String>(HttpStatus.OK);	
+		}		
+		else{							
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);			
+		}
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Integer id){
-		RentEntity rentEntity = rentRepository.getOne(id);
-		if (rentEntity == null){
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+	Optional<RentEntity> optionalRentEntity = rentService.findRentId(id);	
+		if (!optionalRentEntity.isPresent())
+		{	
+			RentEntity rentEntity = optionalRentEntity.get();
+			rentService.deleteRent(rentEntity);
+			return new ResponseEntity<String>(HttpStatus.OK);
 		}
 		else{
-			rentRepository.delete(rentEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
 	}
 	

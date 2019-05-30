@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.rentacar.component.MapperService;
 import com.example.rentacar.dao.RatePriceRepository;
 import com.example.rentacar.dao.RentRepository;
 import com.example.rentacar.dto.RatePriceDto;
 import com.example.rentacar.dto.RentDto;
-import com.example.rentacar.model.entitity.RatePriceEntity;
-import com.example.rentacar.model.entitity.RentEntity;
-import com.example.rentacar.service.MapperService;
+import com.example.rentacar.entitity.RatePriceEntity;
+import com.example.rentacar.entitity.RentEntity;
 
 @RestController
 @RequestMapping("/rateprice")
@@ -52,7 +52,6 @@ public class RatePriceController {
 	public RatePriceDto post(@RequestBody RatePriceDto ratePriceDto){
 		RatePriceEntity ratePriceEntity = mapperServiceEntityDto.map(ratePriceDto);
 		ratePriceRepository.saveAndFlush((RatePriceEntity) ratePriceEntity);
-		ratePriceRepository.saveOnRatePricesCars(ratePriceDto.getIdRatePrice(), ratePriceDto.getIdCoche());
 		ratePriceDto.setIdRatePrice(ratePriceEntity.getIdRatePrice());
 		ratePriceDto.setPriceRate(ratePriceEntity.getPriceRate());
 		ratePriceDto.setStartRate(ratePriceEntity.getStartRatePrice());
@@ -61,7 +60,7 @@ public class RatePriceController {
 	}
 	
 	
-	//Pendiente agregar la relacion con car y la tabla intermedia.
+	
 	@PutMapping
 	public RatePriceDto put(@RequestBody RatePriceDto ratePriceDto){
 		RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(ratePriceDto.getIdRatePrice());

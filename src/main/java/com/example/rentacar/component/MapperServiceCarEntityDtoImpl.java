@@ -1,4 +1,4 @@
-package com.example.rentacar.service;
+package com.example.rentacar.component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 import com.example.rentacar.dto.CarDto;
-import com.example.rentacar.model.entitity.CarEntity;
+import com.example.rentacar.entitity.CarEntity;
 
 @Component
 public class MapperServiceCarEntityDtoImpl implements MapperService<CarEntity, CarDto>{

@@ -1,23 +1,21 @@
 package com.example.rentacar.dto;
 
-import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+import lombok.Data;
+
+@Data
 public class RentDto {
 
-	private Integer idRent;
+	private Integer id;
 	
-	private Integer priceRent;
+	private Double price;
 	
-	private Date startRent;
+	private String startDate;
 	
-	private Date endRent;
+	private String endDate;
 	
-	private Integer idClient;
+	private Integer client;
 	
-	private Integer idCoche;
+	private Integer car;
 }

@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.rentacar.component.MapperService;
 import com.example.rentacar.dao.CarRepository;
 import com.example.rentacar.dto.CarDto;
-import com.example.rentacar.model.entitity.CarEntity;
-import com.example.rentacar.service.MapperService;
+import com.example.rentacar.entitity.CarEntity;
 
 @RestController
 @RequestMapping("/car")
@@ -44,6 +45,17 @@ public class CarController {
 	
 	@PostMapping()
 	public CarDto post(@RequestBody CarDto carDto){		
+		CarEntity carEntity = mapperServiceEntityDto.map(carDto);
+		carRepository.saveAndFlush((CarEntity) carEntity);		
+		carDto.setIdCar(carEntity.getIdCar());
+		carDto.setLicenseCar(carEntity.getLicenseCar());
+		carDto.setNameCar(carEntity.getNameCar());
+		carDto.setTypeCar(carEntity.getTypeCar());		
+		return carDto;
+	}
+
+	@PostMapping("/{id}/rate")
+	public CarDto post2(@RequestBody CarDto carDto){		
 		CarEntity carEntity = mapperServiceEntityDto.map(carDto);
 		carRepository.saveAndFlush((CarEntity) carEntity);		
 		carDto.setIdCar(carEntity.getIdCar());

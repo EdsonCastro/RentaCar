@@ -1,4 +1,4 @@
-package com.example.rentacar.model.entitity;
+package com.example.rentacar.entitity;
 
 
 import java.util.Date;
@@ -21,17 +21,13 @@ public class RentEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_RENT")
-	private Integer idRent;
+	private Integer id;
 	
-	@Column(name = "PRICE_RENT")
-	private Integer priceRent;
+	private Integer price;
 	
-	@Column(name = "START_RENT")
-	private Date startRent;
+	private Date startDatet;
 	
-	@Column(name = "END_RENT")
-	private Date endRent;
+	private Date endDate;
 	
 	@ManyToOne	
 	private ClientEntity client;

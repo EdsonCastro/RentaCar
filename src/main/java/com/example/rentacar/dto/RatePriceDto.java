@@ -18,6 +18,4 @@ public class RatePriceDto {
 	private Date endRate;
 	
 	private Integer activeRate;
-	
-	private Integer idCoche;
 }
