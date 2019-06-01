@@ -25,27 +25,26 @@ public class CarController {
 	@Autowired
 	private CarRepository carRepository;	
 	@Autowired
-	private MapperService<CarDto, CarEntity> mapperServiceDtoEntity;
-	@Autowired
-	private MapperService<CarEntity, CarDto> mapperServiceEntityDto;
+	private MapperService<CarEntity, CarDto> mapperCarServicey;
+
 	
 	@GetMapping("/findAll")
 	public List<CarDto> findAll(){
 		List <CarEntity> carEntityList = carRepository.findAll();
-		List <CarDto> carDtoList = mapperServiceDtoEntity.map(carEntityList);
+		List <CarDto> carDtoList = mapperCarServicey.mapToDto(carEntityList);
 		return carDtoList;
 	}
 	
 	@GetMapping("/{id}")
 	public CarDto findOne(@PathVariable("id") Integer id){
 		CarEntity carEntity = carRepository.getOne(id);
-		CarDto carDto = mapperServiceDtoEntity.map(carEntity);
+		CarDto carDto = mapperCarServicey.mapToDto(carEntity);
 		return carDto;
 	}
 	
 	@PostMapping()
 	public CarDto post(@RequestBody CarDto carDto){		
-		CarEntity carEntity = mapperServiceEntityDto.map(carDto);
+		CarEntity carEntity = mapperCarServicey.mapToEntity(carDto);
 		carRepository.saveAndFlush((CarEntity) carEntity);		
 		carDto.setIdCar(carEntity.getIdCar());
 		carDto.setLicenseCar(carEntity.getLicenseCar());
@@ -56,7 +55,7 @@ public class CarController {
 
 	@PostMapping("/{id}/rate")
 	public CarDto post2(@RequestBody CarDto carDto){		
-		CarEntity carEntity = mapperServiceEntityDto.map(carDto);
+		CarEntity carEntity = mapperCarServicey.mapToEntity(carDto);
 		carRepository.saveAndFlush((CarEntity) carEntity);		
 		carDto.setIdCar(carEntity.getIdCar());
 		carDto.setLicenseCar(carEntity.getLicenseCar());

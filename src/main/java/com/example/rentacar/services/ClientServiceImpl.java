@@ -18,13 +18,8 @@ public class ClientServiceImpl implements ClientService{
 	private ClientRepository clientRepository;
 
 	@Override
-	public List<ClientEntity> findAllClients() {
+	public List<ClientEntity> findAllClients(String name) {
 		return clientRepository.findAll();
-	}
-
-	@Override
-	public List<ClientEntity> findClientName(String name) {
-		return clientRepository.findByName(name);
 	}
 
 	@Override
@@ -38,7 +33,14 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public void saveClient(ClientEntity clientEntity) {		
+	public Optional<ClientEntity> saveClient(ClientEntity clientEntity) {
+		return Optional.ofNullable( clientRepository.saveAndFlush( clientEntity ) );
+	}	
+	
+	@Override
+	public void updateClient(ClientEntity clientEntity, ClientDto clientDto) {
+		clientEntity.setDni(clientDto.getDni());
+		clientEntity.setName(clientDto.getName());
 		clientRepository.saveAndFlush(clientEntity);
 	}
 

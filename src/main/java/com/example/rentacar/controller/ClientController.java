@@ -2,6 +2,7 @@ package com.example.rentacar.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,65 +29,58 @@ public class ClientController {
 	@Autowired
 	private ClientService clientService;
 	@Autowired
-	private MapperService<ClientDto, ClientEntity> mapperServiceDtoEntity;	
-	@Autowired
-	private MapperService<ClientEntity, ClientDto> mapperServiceEntityDto;
+	private MapperService<ClientEntity, ClientDto> mapperServiceClient;
 		
-	
+
+	//FIX
 	@GetMapping()
 	public List<ClientDto> findAll(@RequestParam (value = "name", required = false) String name){
-		
-		if (name.isEmpty()){
-			return mapperServiceDtoEntity.map(clientService.findAllClients());
-		}
-		else{
-			return mapperServiceDtoEntity.map(clientService.findClientName(name));
-		}
+
+			//FIX PARA TODOS LOS NOMBRES
+		return clientService.findAllClients(name)
+				.stream()
+				.map(mapperServiceClient::mapToDto)
+				.collect(Collectors.toList());
 	}
 	
 		
 	@GetMapping("/{id}")
-	public ClientDto findOne(@PathVariable("id") Integer id){	
-			ClientDto clientDto = new ClientDto();
-			Optional<ClientEntity> optionalClientEntity = clientService.findClientId(id);			
-			if (optionalClientEntity.isPresent())
-			{
-				ClientEntity clientEntity = optionalClientEntity.get(); 
-				clientDto = mapperServiceDtoEntity.map(clientEntity);
-			}
-			return clientDto;			
+	public  ResponseEntity<?> findOne(@PathVariable("id") Integer id){
+		return clientService.findClientId(id)
+				.map(mapperServiceClient::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 		
 	
 	@PostMapping()
-	public ResponseEntity<String> post(@RequestBody ClientDto clientDto){					
-		Optional<ClientEntity> optionalClientEntity = clientService.findClientDni(clientDto.getDni());	
-		if (!optionalClientEntity.isPresent())
-		{		
-			ClientEntity clientEntity = new ClientEntity();
-			clientEntity = mapperServiceEntityDto.map(clientDto);
-			clientService.saveClient(clientEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);
-		}
-		else
-			return new ResponseEntity<String>(HttpStatus.FOUND);
+	public ResponseEntity<?> post(@RequestBody ClientDto clientDto){
+
+		return clientService.saveClient(mapperServiceClient.mapToEntity(clientDto))
+				.map(mapperServiceClient::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	
 	@PutMapping 
 	public ResponseEntity<String> put(@RequestBody ClientDto clientDto){
-		Optional<ClientEntity> optionalClientId = clientService.findClientId(clientDto.getId());
+
+		return clientService.updateClient(mapperServiceClient.mapToEntity(clientDto))
+				.map(mapperServiceClient::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+
+		/*Optional<ClientEntity> optionalClientId = clientService.findClientId(clientDto.getId());
 		if (optionalClientId.isPresent())
 		{
 			ClientEntity clientEntity = optionalClientId.get();
-			clientService.deleteClient(clientEntity);
-			clientEntity = mapperServiceEntityDto.map(clientDto);
-			clientService.saveClient(clientEntity);	
+			clientService.updateClient(clientEntity, clientDto);	
 			return new ResponseEntity<String>(HttpStatus.OK);	
 		}		
 		else{							
 			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);			
-		}
+		}*/
 	}
 	
 	

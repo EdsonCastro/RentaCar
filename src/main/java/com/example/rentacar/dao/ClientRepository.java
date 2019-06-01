@@ -13,13 +13,15 @@ import com.example.rentacar.entitity.ClientEntity;
 
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Integer>{
-		
 
+	//@Query ("select c from client c where c.name like ?:1 or ?:1 is null")
+	//@Query ("select c from client c where  c.name like ?1") //or %:name% is null")
 	List<ClientEntity> findAll();
 
 	Optional<ClientEntity> findByDni(String dni);
 
-	List<ClientEntity> findByName(String name);
+
+
 	
 	
 	

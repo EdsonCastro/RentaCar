@@ -31,14 +31,13 @@ public class RentController {
 	private RentService rentService;
 	
 	@Autowired
-	private MapperService<RentDto, RentEntity> mapperServiceDtoEntity;
-	@Autowired
-	private MapperService<RentEntity, RentDto> mapperServiceEntityDto;
+	private MapperService<RentEntity, RentDto> mapperRentService;
+
 	
 	@GetMapping()
 	public List<RentDto> findAll(){
 		List <RentEntity> rentEntityList = rentService.findAllRents();
-		List <RentDto> rentDtoList = mapperServiceDtoEntity.map(rentEntityList);
+		List <RentDto> rentDtoList = mapperRentService.mapToDto(rentEntityList);
 		return rentDtoList;
 	}
 	
@@ -49,7 +48,7 @@ public class RentController {
 		if (optionalRentEntity.isPresent())
 		{
 			RentEntity rentEntity = optionalRentEntity.get(); 
-			rentDto = mapperServiceDtoEntity.map(rentEntity);
+			rentDto = mapperRentService.mapToDto(rentEntity);
 		}
 		return rentDto;			
 	}
@@ -61,7 +60,7 @@ public class RentController {
 		if (!optionalRentEntity.isPresent())
 		{		
 			RentEntity rentEntity = new RentEntity();
-			rentEntity = mapperServiceEntityDto.map(rentDto);
+			rentEntity = mapperRentService.mapToEntity(rentDto);
 			rentService.saveRent(rentEntity);
 			return new ResponseEntity<String>(HttpStatus.OK);
 		}
@@ -76,7 +75,7 @@ public class RentController {
 		{		
 			RentEntity rentEntity = optionalRentEntity.get();
 			rentService.deleteRent(rentEntity);
-			rentEntity = mapperServiceEntityDto.map(rentDto);
+			rentEntity = mapperRentService.mapToEntity(rentDto);
 			rentService.saveRent(rentEntity);	
 			return new ResponseEntity<String>(HttpStatus.OK);	
 		}		

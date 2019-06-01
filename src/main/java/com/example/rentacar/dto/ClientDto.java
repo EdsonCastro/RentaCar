@@ -1,16 +1,19 @@
 package com.example.rentacar.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
+@AllArgsConstructor
 public class ClientDto {
 
+	public ClientDto(){}
+	
 	private Integer id;
 
 	private String dni;
 
 	private String name;
-	
+
 }

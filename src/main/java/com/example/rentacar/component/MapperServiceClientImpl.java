@@ -11,10 +11,10 @@ import com.example.rentacar.entitity.ClientEntity;
 import com.example.rentacar.entitity.RentEntity;
 
 @Component
-public class MapperServiceClientDtoEntityImpl implements MapperService<ClientEntity, ClientDto>{
+public class MapperServiceClientImpl implements MapperService<ClientEntity, ClientDto>{
 
 	@Override
-	public ClientEntity map(ClientDto clientDto) {
+	public ClientEntity mapToEntity(ClientDto clientDto) {
 		ClientEntity clientEntity = new ClientEntity();
 		clientEntity.setName(clientDto.getName());
 		clientEntity.setDni(clientDto.getDni());
@@ -22,7 +22,7 @@ public class MapperServiceClientDtoEntityImpl implements MapperService<ClientEnt
 	}
 
 	@Override
-	public List<ClientEntity> map(List<ClientDto> clientDtoList) {
+	public List<ClientEntity> mapToEntity(List<ClientDto> clientDtoList) {
 		List<ClientEntity> clientEntityList = new ArrayList<ClientEntity>();	
 		ClientDto clientDto = new ClientDto();
 		Iterator<ClientDto> iterator = clientDtoList.iterator();
@@ -37,5 +37,19 @@ public class MapperServiceClientDtoEntityImpl implements MapperService<ClientEnt
 		return clientEntityList;
 	}
 
-	
+	@Override
+	public ClientDto mapToDto(ClientEntity clientEntity) {
+		return (new ClientDto(clientEntity.getId(),clientEntity.getDni(),clientEntity.getName()));
+	}
+
+	@Override
+	public List<ClientDto> mapToDto(List<ClientEntity> clientEntityList) {
+		List<ClientDto> clientDtoList = new ArrayList<ClientDto>();
+		clientEntityList.forEach(item->{
+			clientDtoList.add(new ClientDto(item.getId(),item.getDni(),item.getName()));
+		});
+		return clientDtoList;
+	}
+
+
 }

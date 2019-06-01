@@ -29,28 +29,26 @@ public class RatePriceController {
 	@Autowired
 	private RatePriceRepository ratePriceRepository;
 	@Autowired
-	private MapperService<RatePriceDto, RatePriceEntity> mapperServiceDtoEntity;
-	@Autowired
-	private MapperService<RatePriceEntity, RatePriceDto> mapperServiceEntityDto;
-	
+	private MapperService<RatePriceEntity, RatePriceDto> mapperRentPrice;
+
 	@GetMapping("/findAll")
 	public List<RatePriceDto> findAll(){
 		List <RatePriceEntity> ratePriceEntityList = ratePriceRepository.findAll();
-		List <RatePriceDto> ratePriceDtoList = mapperServiceDtoEntity.map(ratePriceEntityList);
+		List <RatePriceDto> ratePriceDtoList = mapperRentPrice.mapToDto(ratePriceEntityList);
 		return ratePriceDtoList;
 	}
 	
 	@GetMapping("/{id}")
 	public RatePriceDto findOne(@PathVariable("id") Integer id){
 		RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(id);
-		RatePriceDto ratePriceDto = mapperServiceDtoEntity.map(ratePriceEntity);
+		RatePriceDto ratePriceDto = mapperRentPrice.mapToDto(ratePriceEntity);
 		return ratePriceDto;
 	}
 	
 	//Pendiente agregar la relacion con car y la tabla intermedia.
 	@PostMapping()
 	public RatePriceDto post(@RequestBody RatePriceDto ratePriceDto){
-		RatePriceEntity ratePriceEntity = mapperServiceEntityDto.map(ratePriceDto);
+		RatePriceEntity ratePriceEntity = mapperRentPrice.mapToEntity(ratePriceDto);
 		ratePriceRepository.saveAndFlush((RatePriceEntity) ratePriceEntity);
 		ratePriceDto.setIdRatePrice(ratePriceEntity.getIdRatePrice());
 		ratePriceDto.setPriceRate(ratePriceEntity.getPriceRate());

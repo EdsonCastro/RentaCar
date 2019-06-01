@@ -8,15 +8,15 @@ import com.example.rentacar.entitity.ClientEntity;
 
 public interface ClientService {
 	
-	List <ClientEntity> findAllClients();
-	
-	List <ClientEntity> findClientName(String name);
+	List <ClientEntity> findAllClients(String name);
 	
 	Optional<ClientEntity> findClientId(Integer id);
 	
 	Optional<ClientEntity> findClientDni(String id);
+
+	Optional<ClientEntity> saveClient(ClientEntity clientEntity);
 	
-	void saveClient(ClientEntity clientEntity);
+	Optional<ClientEntity>(ClientDto clientDto);
 	
 	void deleteClient(ClientEntity clientEntity);
 }
