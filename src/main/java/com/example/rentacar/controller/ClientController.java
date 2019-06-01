@@ -30,13 +30,11 @@ public class ClientController {
 	private ClientService clientService;
 	@Autowired
 	private MapperService<ClientEntity, ClientDto> mapperServiceClient;
-		
 
-	//FIX
+
+	//FIX Sentencia SQL
 	@GetMapping()
 	public List<ClientDto> findAll(@RequestParam (value = "name", required = false) String name){
-
-			//FIX PARA TODOS LOS NOMBRES
 		return clientService.findAllClients(name)
 				.stream()
 				.map(mapperServiceClient::mapToDto)
@@ -45,7 +43,7 @@ public class ClientController {
 	
 		
 	@GetMapping("/{id}")
-	public  ResponseEntity<?> findOne(@PathVariable("id") Integer id){
+	public  ResponseEntity<ClientDto> findOne(@PathVariable("id") Integer id){
 		return clientService.findClientId(id)
 				.map(mapperServiceClient::mapToDto)
 				.map(ResponseEntity::ok)
@@ -54,8 +52,7 @@ public class ClientController {
 		
 	
 	@PostMapping()
-	public ResponseEntity<?> post(@RequestBody ClientDto clientDto){
-
+	public ResponseEntity<ClientDto> post(@RequestBody ClientDto clientDto){
 		return clientService.saveClient(mapperServiceClient.mapToEntity(clientDto))
 				.map(mapperServiceClient::mapToDto)
 				.map(ResponseEntity::ok)
@@ -64,39 +61,22 @@ public class ClientController {
 	
 	
 	@PutMapping 
-	public ResponseEntity<String> put(@RequestBody ClientDto clientDto){
-
+	public ResponseEntity<?> put(@RequestBody ClientDto clientDto){
 		return clientService.updateClient(mapperServiceClient.mapToEntity(clientDto))
 				.map(mapperServiceClient::mapToDto)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
-
-		/*Optional<ClientEntity> optionalClientId = clientService.findClientId(clientDto.getId());
-		if (optionalClientId.isPresent())
-		{
-			ClientEntity clientEntity = optionalClientId.get();
-			clientService.updateClient(clientEntity, clientDto);	
-			return new ResponseEntity<String>(HttpStatus.OK);	
-		}		
-		else{							
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);			
-		}*/
 	}
 	
-	
+	//FIX LO DE LA EXCEPCION
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable("id") Integer id){
-		Optional<ClientEntity> optionalClientEntity = clientService.findClientId(id);
-		if (optionalClientEntity.isPresent())
-		{	
-			ClientEntity clientEntity = optionalClientEntity.get();
-			clientService.deleteClient(clientEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);
-		}
-		else{
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+		clientService.deleteClient(id);
+		// 		map(ResponseEntity::ok)
+		//		.orElse(ResponseEntity.notFound().build());
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+
 
 	
 }

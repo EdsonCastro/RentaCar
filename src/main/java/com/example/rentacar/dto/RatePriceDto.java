@@ -2,20 +2,19 @@ package com.example.rentacar.dto;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
+@AllArgsConstructor
 public class RatePriceDto {
 	
-	private Integer idRatePrice;
+	private Integer id;
 	
-	private Integer priceRate;
+	private Integer price;
 	
 	private Date startRate;
 	
 	private Date endRate;
-	
-	private Integer activeRate;
 }

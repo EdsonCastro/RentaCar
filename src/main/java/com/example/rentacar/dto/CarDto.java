@@ -1,18 +1,21 @@
 package com.example.rentacar.dto;
 
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+
+@Data
+@AllArgsConstructor
 public class CarDto {
 
-	private Integer idCar;
+	public CarDto(){}
+
+	private Integer id;
 	
-	private String licenseCar;
+	private String CarPlate;
 	
-	private String nameCar;
-	
-	private String typeCar;
+	private String registrationYear;
+
 }

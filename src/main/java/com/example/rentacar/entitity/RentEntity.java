@@ -10,11 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "RENT")
 public class RentEntity {
@@ -28,6 +29,8 @@ public class RentEntity {
 	private Date startDatet;
 	
 	private Date endDate;
+
+
 	
 	@ManyToOne	
 	private ClientEntity client;

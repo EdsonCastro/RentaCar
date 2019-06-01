@@ -14,9 +14,8 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 	@Override
 	public CarEntity mapToEntity(CarDto carDto) {
 		CarEntity carEntity = new CarEntity();
-		carEntity.setLicenseCar(carDto.getLicenseCar());
-		carEntity.setNameCar(carDto.getNameCar());
-		carEntity.setTypeCar(carDto.getTypeCar());
+		carEntity.setCarPlate(carDto.getCarPlate());
+		carEntity.setRegistrationYear(carDto.getRegistrationYear());
 		return carEntity;
 	}
 
@@ -29,9 +28,8 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 		while(iterator.hasNext()){
 			carDto = iterator.next();
 			CarEntity carEntity = new CarEntity();
-			carEntity.setLicenseCar(carDto.getLicenseCar());
-			carEntity.setNameCar(carDto.getNameCar());
-			carEntity.setTypeCar(carDto.getTypeCar());
+			carEntity.setCarPlate(carDto.getCarPlate());
+			carEntity.setRegistrationYear(carDto.getRegistrationYear());
 			carEntityList.add(carEntity);
 		}
 		return carEntityList;
@@ -39,28 +37,16 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 
 	@Override
 	public CarDto mapToDto(CarEntity carEntity) {
-		CarDto carDto = new CarDto();
-		carDto.setIdCar(carEntity.getIdCar());
-		carDto.setLicenseCar(carEntity.getLicenseCar());
-		carDto.setNameCar(carEntity.getNameCar());
-		carDto.setTypeCar(carEntity.getTypeCar());
+		CarDto carDto = new CarDto(carEntity.getId(), carEntity.getCarPlate(), carEntity.getRegistrationYear());
 		return carDto;
 	}
 
 	@Override
 	public List<CarDto> mapToDto(List<CarEntity> cartEntityList) {
 		List<CarDto> carDtoList = new ArrayList<CarDto>();
-		CarEntity carEntity = new CarEntity();
-		Iterator<CarEntity> iterator = cartEntityList.iterator();
-		while(iterator.hasNext()){
-			carEntity = iterator.next();
-			CarDto carDto = new CarDto();
-			carDto.setIdCar(carEntity.getIdCar());
-			carDto.setLicenseCar(carEntity.getLicenseCar());
-			carDto.setNameCar(carEntity.getNameCar());
-			carDto.setTypeCar(carEntity.getTypeCar());
-			carDtoList.add(carDto);
-		}
+		cartEntityList.forEach(item->{
+			carDtoList.add(new CarDto(item.getId(),item.getCarPlate(),item.getRegistrationYear()));
+		});
 		return carDtoList;
 	}
 

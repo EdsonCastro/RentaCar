@@ -1,16 +1,15 @@
 package com.example.rentacar.services;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.example.rentacar.dao.ClientRepository;
+import com.example.rentacar.entitity.ClientEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.rentacar.dao.ClientRepository;
-import com.example.rentacar.entitity.ClientEntity;
+import java.util.List;
+import java.util.Optional;
 
 @Component
-public class ClientServiceImpl implements ClientService{
+public class RatePriceServiceImpl implements ClientService{
 
 	@Autowired
 	private ClientRepository clientRepository;

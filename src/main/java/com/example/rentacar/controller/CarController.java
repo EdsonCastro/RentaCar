@@ -1,17 +1,13 @@
 package com.example.rentacar.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.example.rentacar.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.rentacar.component.MapperService;
 import com.example.rentacar.dao.CarRepository;
@@ -23,57 +19,50 @@ import com.example.rentacar.entitity.CarEntity;
 public class CarController {
 
 	@Autowired
+	private CarService carService;
+
+	@Autowired
 	private CarRepository carRepository;	
 	@Autowired
 	private MapperService<CarEntity, CarDto> mapperCarServicey;
 
 	
-	@GetMapping("/findAll")
-	public List<CarDto> findAll(){
-		List <CarEntity> carEntityList = carRepository.findAll();
-		List <CarDto> carDtoList = mapperCarServicey.mapToDto(carEntityList);
-		return carDtoList;
-	}
-	
-	@GetMapping("/{id}")
-	public CarDto findOne(@PathVariable("id") Integer id){
-		CarEntity carEntity = carRepository.getOne(id);
-		CarDto carDto = mapperCarServicey.mapToDto(carEntity);
-		return carDto;
-	}
-	
-	@PostMapping()
-	public CarDto post(@RequestBody CarDto carDto){		
-		CarEntity carEntity = mapperCarServicey.mapToEntity(carDto);
-		carRepository.saveAndFlush((CarEntity) carEntity);		
-		carDto.setIdCar(carEntity.getIdCar());
-		carDto.setLicenseCar(carEntity.getLicenseCar());
-		carDto.setNameCar(carEntity.getNameCar());
-		carDto.setTypeCar(carEntity.getTypeCar());		
-		return carDto;
+	@GetMapping()
+	public List<CarDto> findAll(@RequestParam(value = "name", required = false) String name){
+		return carService.findAll(name)
+				.stream()
+				.map(mapperCarServicey::mapToDto)
+				.collect( Collectors.toList());
 	}
 
-	@PostMapping("/{id}/rate")
-	public CarDto post2(@RequestBody CarDto carDto){		
-		CarEntity carEntity = mapperCarServicey.mapToEntity(carDto);
-		carRepository.saveAndFlush((CarEntity) carEntity);		
-		carDto.setIdCar(carEntity.getIdCar());
-		carDto.setLicenseCar(carEntity.getLicenseCar());
-		carDto.setNameCar(carEntity.getNameCar());
-		carDto.setTypeCar(carEntity.getTypeCar());		
-		return carDto;
+
+	@GetMapping("/{id}")
+	public ResponseEntity<CarDto> findOne(@PathVariable("id") Integer id){
+		return carService.findId(id)
+				.map(mapperCarServicey::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
-	
+
+
+	@PostMapping()
+	public ResponseEntity<CarDto> post(@RequestBody CarDto carDto){
+		return carService.save(mapperCarServicey.mapToEntity(carDto))
+				.map(mapperCarServicey::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+	}
+
+
 	@PutMapping
-	public CarDto put(@RequestBody CarDto carDto){
-		CarEntity carEntity = carRepository.getOne(carDto.getIdCar());		
-		carEntity.setLicenseCar(carDto.getLicenseCar());
-		carEntity.setNameCar(carDto.getNameCar());
-		carEntity.setTypeCar(carDto.getTypeCar());
-		carRepository.saveAndFlush((CarEntity)carEntity);
-		return carDto;
+	public ResponseEntity<?> put(@RequestBody CarDto carDto){
+		return carService.update(mapperCarServicey.mapToEntity(carDto))
+				.map(mapperCarServicey::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
-	
+
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Integer id){
 		CarEntity carEntity = carRepository.getOne(id);

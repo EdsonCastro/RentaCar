@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,33 +13,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "RATE_PRICE")
 public class RatePriceEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_RATE")
 	private Integer idRatePrice;
-	
-	@Column(name = "PRICE_RATE")
+
 	private Integer priceRate;
-	
-	@Column(name = "ACTIVE_RATE")
-	private Integer activeRate;
-	
-	@Column(name = "START_RATE")
+
 	private Date startRatePrice;
-	
-	@Column(name = "END_RATE")
+
 	private Date endRatePrice;
-	
+
+	private Integer activeRate;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<CarEntity> cars = new TreeSet<>();
 	
