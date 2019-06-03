@@ -22,8 +22,6 @@ public class CarController {
 	private CarService carService;
 
 	@Autowired
-	private CarRepository carRepository;	
-	@Autowired
 	private MapperService<CarEntity, CarDto> mapperCarServicey;
 
 	
@@ -65,13 +63,17 @@ public class CarController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Integer id){
-		CarEntity carEntity = carRepository.getOne(id);
+			carService.delete(id);
+			// 		map(ResponseEntity::ok)
+			//		.orElse(ResponseEntity.notFound().build());
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
+		/*CarEntity carEntity = carRepository.getOne(id);
 		if (carEntity == null){
 			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
 		else{
 			carRepository.delete(carEntity);
 			return new ResponseEntity<String>(HttpStatus.OK);
-		}
-	}	
+		}*/
 }

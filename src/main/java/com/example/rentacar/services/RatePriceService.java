@@ -1,19 +1,20 @@
 package com.example.rentacar.services;
 
 import com.example.rentacar.entitity.CarEntity;
+import com.example.rentacar.entitity.RatePriceEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface RatePriceService {
 	
-	List <CarEntity> findAll(String name);
+	List <RatePriceEntity> findAll(String name);
 	
-	Optional<CarEntity> findId(Integer id);
+	Optional<RatePriceEntity> findId(Integer id);
 
-	Optional<CarEntity> save(CarEntity carEntity);
+	Optional<RatePriceEntity> save(RatePriceEntity ratePriceEntity);
 
-	Optional<CarEntity> update(CarEntity carEntity);
+	Optional<RatePriceEntity> update(RatePriceEntity ratePriceEntity);
 
 	void delete(Integer id);
 }

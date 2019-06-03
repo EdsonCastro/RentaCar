@@ -23,15 +23,17 @@ import lombok.Data;
 @Table(name = "RATE_PRICE")
 public class RatePriceEntity {
 
+	public RatePriceEntity(){}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idRatePrice;
+	private Integer id;
 
-	private Integer priceRate;
+	private Integer price;
 
-	private Date startRatePrice;
+	private Date startDate;
 
-	private Date endRatePrice;
+	private Date endDate;
 
 	private Integer activeRate;
 

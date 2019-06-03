@@ -15,9 +15,9 @@ public class MapperServiceRatePriceImpl implements MapperService<RatePriceEntity
 	@Override
 	public RatePriceEntity mapToEntity(RatePriceDto ratePriceDto) {
 		RatePriceEntity ratePriceEntity = new RatePriceEntity();
-		ratePriceEntity.setPriceRate(ratePriceDto.getPriceRate());
-		ratePriceEntity.setStartRatePrice(ratePriceDto.getStartRate());
-		ratePriceEntity.setEndRatePrice(ratePriceDto.getEndRate());				
+		ratePriceEntity.setPrice(ratePriceDto.getPrice());
+		ratePriceEntity.setStartDate( ratePriceDto.getStartRate());
+		ratePriceEntity.setEndDate( ratePriceDto.getEndRate());
 		return ratePriceEntity;
 	}
 
@@ -29,9 +29,9 @@ public class MapperServiceRatePriceImpl implements MapperService<RatePriceEntity
 		while(iterator.hasNext()){	
 			ratePriceDto = iterator.next();
 			RatePriceEntity ratePriceEntity = new RatePriceEntity();
-			ratePriceEntity.setPriceRate(ratePriceDto.getPriceRate());
-			ratePriceEntity.setStartRatePrice(ratePriceDto.getStartRate());
-			ratePriceEntity.setEndRatePrice(ratePriceDto.getEndRate());
+			ratePriceEntity.setPrice(ratePriceDto.getPrice());
+			ratePriceEntity.setStartDate( ratePriceDto.getStartRate());
+			ratePriceEntity.setEndDate( ratePriceDto.getEndRate());
 			ratePriceEntityList.add(ratePriceEntity);			
 		}
 		return ratePriceEntityList;
@@ -39,28 +39,16 @@ public class MapperServiceRatePriceImpl implements MapperService<RatePriceEntity
 
 	@Override
 	public RatePriceDto mapToDto(RatePriceEntity ratePriceEntity) {
-		RatePriceDto ratePriceDto = new RatePriceDto();
-		ratePriceDto.setIdRatePrice(ratePriceEntity.getIdRatePrice());
-		ratePriceDto.setPriceRate(ratePriceEntity.getPriceRate());
-		ratePriceDto.setStartRate(ratePriceEntity.getStartRatePrice());
-		ratePriceDto.setEndRate(ratePriceEntity.getEndRatePrice());
+		RatePriceDto ratePriceDto = new RatePriceDto(ratePriceEntity.getId(), ratePriceEntity.getPrice(), ratePriceEntity.getStartDate(), ratePriceEntity.getEndDate());
 		return ratePriceDto;
 	}
 
 	@Override
 	public List<RatePriceDto> mapToDto(List<RatePriceEntity> ratePriceEntityList) {
-		List<RatePriceDto> rentPriceDtoList = new ArrayList<RatePriceDto>();
-		RatePriceEntity ratePriceEntity = new RatePriceEntity();
-		Iterator<RatePriceEntity> iterator = ratePriceEntityList.iterator();
-		while(iterator.hasNext()){
-			ratePriceEntity = iterator.next();
-			RatePriceDto ratePriceDto = new RatePriceDto();
-			ratePriceDto.setIdRatePrice(ratePriceEntity.getIdRatePrice());
-			ratePriceDto.setPriceRate(ratePriceEntity.getPriceRate());
-			ratePriceDto.setStartRate(ratePriceEntity.getStartRatePrice());
-			ratePriceDto.setEndRate(ratePriceEntity.getEndRatePrice());
-			rentPriceDtoList.add(ratePriceDto);
-		}
-		return rentPriceDtoList;
+		List<RatePriceDto> ratePriceDtoList = new ArrayList<RatePriceDto>();
+		ratePriceEntityList.forEach(item->{
+			ratePriceDtoList.add(new RatePriceDto(item.getId(), item.getPrice(), item.getStartDate(), item.getEndDate()));
+		});
+		return ratePriceDtoList;
 	}
 }

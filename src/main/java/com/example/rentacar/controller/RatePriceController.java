@@ -1,18 +1,14 @@
 package com.example.rentacar.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.example.rentacar.dto.CarDto;
+import com.example.rentacar.services.RatePriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.rentacar.component.MapperService;
 import com.example.rentacar.dao.RatePriceRepository;
@@ -27,58 +23,59 @@ import com.example.rentacar.entitity.RentEntity;
 public class RatePriceController {
 
 	@Autowired
-	private RatePriceRepository ratePriceRepository;
+	private RatePriceService RatePriceService;
 	@Autowired
-	private MapperService<RatePriceEntity, RatePriceDto> mapperRentPrice;
+	private MapperService<RatePriceEntity, RatePriceDto> mapperRentPriceService;
 
-	@GetMapping("/findAll")
-	public List<RatePriceDto> findAll(){
-		List <RatePriceEntity> ratePriceEntityList = ratePriceRepository.findAll();
-		List <RatePriceDto> ratePriceDtoList = mapperRentPrice.mapToDto(ratePriceEntityList);
-		return ratePriceDtoList;
+	@GetMapping()
+	public List<RatePriceDto> findAll(@RequestParam(value = "name", required = false) String name){
+		return RatePriceService.findAll(name)
+				.stream()
+				.map(mapperRentPriceService::mapToDto)
+				.collect( Collectors.toList());
 	}
-	
+
 	@GetMapping("/{id}")
-	public RatePriceDto findOne(@PathVariable("id") Integer id){
-		RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(id);
-		RatePriceDto ratePriceDto = mapperRentPrice.mapToDto(ratePriceEntity);
-		return ratePriceDto;
-	}
+	public ResponseEntity<RatePriceDto> findOne(@PathVariable("id") Integer id){
+		return RatePriceService.findId(id)
+			.map(mapperRentPriceService::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+}
+
 	
-	//Pendiente agregar la relacion con car y la tabla intermedia.
 	@PostMapping()
-	public RatePriceDto post(@RequestBody RatePriceDto ratePriceDto){
-		RatePriceEntity ratePriceEntity = mapperRentPrice.mapToEntity(ratePriceDto);
-		ratePriceRepository.saveAndFlush((RatePriceEntity) ratePriceEntity);
-		ratePriceDto.setIdRatePrice(ratePriceEntity.getIdRatePrice());
-		ratePriceDto.setPriceRate(ratePriceEntity.getPriceRate());
-		ratePriceDto.setStartRate(ratePriceEntity.getStartRatePrice());
-		ratePriceDto.setEndRate(ratePriceEntity.getEndRatePrice());
-		return ratePriceDto;
+	public ResponseEntity<RatePriceDto>  post(@RequestBody RatePriceDto ratePriceDto){
+		return RatePriceService.save(mapperRentPriceService.mapToEntity(ratePriceDto))
+				.map(mapperRentPriceService::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	
 	
 	@PutMapping
-	public RatePriceDto put(@RequestBody RatePriceDto ratePriceDto){
-		RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(ratePriceDto.getIdRatePrice());
-		ratePriceEntity.setPriceRate(ratePriceDto.getPriceRate());
-		ratePriceEntity.setStartRatePrice(ratePriceDto.getStartRate());
-		ratePriceEntity.setEndRatePrice(ratePriceDto.getEndRate());				
-		ratePriceRepository.saveAndFlush((RatePriceEntity) ratePriceEntity);	
-		return ratePriceDto;
+	public ResponseEntity<?> put(@RequestBody RatePriceDto ratePriceDto){
+		return RatePriceService.update(mapperRentPriceService.mapToEntity(ratePriceDto))
+			.map(mapperRentPriceService::mapToDto)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
+
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Integer id){
-		RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(id);
+		RatePriceService.delete(id);
+		// 		map(ResponseEntity::ok)
+		//		.orElse(ResponseEntity.notFound().build());
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+		/*RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(id);
 		if (ratePriceEntity == null){
 			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
 		else{
 			ratePriceRepository.delete(ratePriceEntity);
 			return new ResponseEntity<String>(HttpStatus.OK);
-		}
-	}
-	
+		}*/
 }

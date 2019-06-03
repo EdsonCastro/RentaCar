@@ -19,19 +19,22 @@ import lombok.Data;
 @Entity
 @Table(name = "RENT")
 public class RentEntity {
+
+	public RentEntity(){};
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	private Integer price;
+	private Double price;
 	
-	private Date startDatet;
+	//private Date startDate;
+	private String startDate;
 	
-	private Date endDate;
+	//private Date endDate;
+	private String endDate;
 
 
-	
 	@ManyToOne	
 	private ClientEntity client;
 

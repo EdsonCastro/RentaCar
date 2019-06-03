@@ -1,7 +1,7 @@
 package com.example.rentacar.services;
 
-import com.example.rentacar.dao.ClientRepository;
-import com.example.rentacar.entitity.ClientEntity;
+import com.example.rentacar.dao.RatePriceRepository;
+import com.example.rentacar.entitity.RatePriceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,39 +9,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class RatePriceServiceImpl implements ClientService{
+public class RatePriceServiceImpl implements RatePriceService{
 
 	@Autowired
-	private ClientRepository clientRepository;
+	private RatePriceRepository ratePriceRepository;
 
 	@Override
-	public List<ClientEntity> findAllClients(String name) {
-		return clientRepository.findAll();
+	public List<RatePriceEntity> findAll(String name) {
+		return ratePriceRepository.findAll();
 	}
 
 	@Override
-	public Optional<ClientEntity> findClientId(Integer id) {	
-		return clientRepository.findById(id);
+	public Optional<RatePriceEntity> findId(Integer id) {
+		return ratePriceRepository.findById(id);
 	}
 
-	@Override
-	public Optional<ClientEntity> findClientDni(String dni) {		
-		return clientRepository.findByDni(dni);
-	}
 
 	@Override
-	public Optional<ClientEntity> saveClient(ClientEntity clientEntity) {
-		return Optional.ofNullable( clientRepository.saveAndFlush( clientEntity ) );
+	public Optional<RatePriceEntity> save(RatePriceEntity ratePriceEntity) {
+		return Optional.ofNullable( ratePriceRepository.saveAndFlush( ratePriceEntity ) );
 	}	
 	
 	@Override
-	public Optional<ClientEntity> updateClient( ClientEntity clientEntit) {
-		return Optional.ofNullable(clientRepository.saveAndFlush(clientEntit));
+	public Optional<RatePriceEntity> update( RatePriceEntity ratePriceEntity) {
+		return Optional.ofNullable(ratePriceRepository.saveAndFlush(ratePriceEntity));
 	}
 
 	@Override
-	public void deleteClient(Integer id) {
-		clientRepository.deleteById(id);
-	}	
-	
+	public void delete(Integer id) {
+		ratePriceRepository.deleteById(id);
+	}
+
 }

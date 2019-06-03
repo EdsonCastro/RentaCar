@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class RatePriceDto {
+
+	public RatePriceDto(){}
 	
 	private Integer id;
 	

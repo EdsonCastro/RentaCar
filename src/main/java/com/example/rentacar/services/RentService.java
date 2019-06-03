@@ -6,11 +6,14 @@ import java.util.Optional;
 import com.example.rentacar.entitity.RentEntity;
 
 public interface RentService {
-	List <RentEntity> findAllRents();
-	
-	Optional<RentEntity> findRentId(Integer id);	
-	
-	void saveRent(RentEntity rentEntity);
-	
-	void deleteRent(RentEntity rentEntity);
+
+	List <RentEntity> findAll(String name);
+
+	Optional<RentEntity> findId(Integer id);
+
+	Optional<RentEntity> save(RentEntity rentEntity);
+
+	Optional<RentEntity> update(RentEntity rentEntity);
+
+	void delete(Integer id);
 }

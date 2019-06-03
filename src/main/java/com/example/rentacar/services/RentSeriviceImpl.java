@@ -13,29 +13,32 @@ import com.example.rentacar.entitity.RentEntity;
 public class RentSeriviceImpl implements RentService{
 
 	@Autowired
-	private RentRepository rentRepository;	
-	
+	private RentRepository rentRepository;
+
 	@Override
-	public List<RentEntity> findAllRents() {
+	public List<RentEntity> findAll(String name) {
 		return rentRepository.findAll();
 	}
 
 	@Override
-	public Optional<RentEntity> findRentId(Integer id) {
-		return null;
+	public Optional<RentEntity> findId(Integer id) {
+		return rentRepository.findById(id);
+	}
+
+
+	@Override
+	public Optional<RentEntity> save(RentEntity rentEntity) {
+		return Optional.ofNullable( rentRepository.saveAndFlush( rentEntity ) );
 	}
 
 	@Override
-	public void saveRent(RentEntity rentEntity) {
-		// TODO Auto-generated method stub
-		
+	public Optional<RentEntity> update( RentEntity rentEntity) {
+		return Optional.ofNullable(rentRepository.saveAndFlush( rentEntity));
 	}
 
 	@Override
-	public void deleteRent(RentEntity rentEntity) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Integer id) {
+		rentRepository.deleteById(id);
 	}
 
-	
 }
