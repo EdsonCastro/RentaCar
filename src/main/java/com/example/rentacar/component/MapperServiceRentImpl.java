@@ -26,7 +26,7 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 	public RentEntity mapToEntity(RentDto rentDto) {
 			RentEntity rentEntity = new RentEntity();
 			rentEntity.setCar(mapperCarService.mapToEntity(rentDto.getCar()));
-			rentEntity.setClient(mapperServiceClient.mapToEntity(rentDto.getClient()));
+			rentEntity.setClient(mapperServiceClient.mapToEntity( rentDto.getClient()));
 			rentEntity.setPrice( rentDto.getPrice() );
 			rentEntity.setStartDate( rentDto.getStartDate( ));
 			rentEntity.setEndDate( rentDto.getEndDate() );
@@ -43,8 +43,8 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 		while(iterator.hasNext()){
 			rentDto = iterator.next();
 			RentEntity rentEntity = new RentEntity();
-			rentEntity.setCar(mapperCarService.mapToEntity(rentDto.getCar()));
-			rentEntity.setClient(mapperServiceClient.mapToEntity(rentDto.getClient()));
+			rentEntity.setCar(mapperCarService.mapToEntity( rentDto.getCar()));
+			rentEntity.setClient(mapperServiceClient.mapToEntity( rentDto.getClient()));
 			rentEntity.setPrice( rentDto.getPrice() );
 			rentEntity.setStartDate( rentDto.getStartDate( ));
 			rentEntity.setEndDate( rentDto.getEndDate() );
@@ -56,7 +56,7 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 
 	@Override
 	public RentDto mapToDto(RentEntity rentEntity) {
-		RentDto rentDto = new RentDto(rentEntity.getId(), rentEntity.getCar(), rentEntity.getClient(), rentEntity.getPrice(), rentEntity.getStartDate(), rentEntity.getEndDate());
+		RentDto rentDto = new RentDto(rentEntity.getId(), mapperCarService.mapToDto( rentEntity.getCar()), mapperServiceClient.mapToDto( rentEntity.getClient()), rentEntity.getPrice(), rentEntity.getStartDate(), rentEntity.getEndDate());
 		return rentDto;
 	}
 
@@ -64,7 +64,7 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 	public List<RentDto> mapToDto(List<RentEntity> rentEntityList) {
 		List<RentDto> rentDtoList = new ArrayList<RentDto>();
 		rentEntityList.forEach(item->{
-			rentDtoList.add(new RentDto(item.getId(), item.getCar(), item.getClient(), item.getPrice(), item.getStartDate(), item.getEndDate()));
+			rentDtoList.add(new RentDto(item.getId(), mapperCarService.mapToDto(item.getCar()),  mapperServiceClient.mapToDto(item.getClient()), item.getPrice(), item.getStartDate(), item.getEndDate()));
 		});
 		return rentDtoList;
 	}

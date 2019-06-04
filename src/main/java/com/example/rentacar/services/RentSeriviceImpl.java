@@ -2,9 +2,12 @@ package com.example.rentacar.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.example.rentacar.dao.CarRepository;
 import com.example.rentacar.dao.ClientRepository;
+import com.example.rentacar.entitity.ClientEntity;
+import com.mysql.cj.xdevapi.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -41,8 +44,10 @@ public class RentSeriviceImpl implements RentService{
 			|| clientRepository.findById( rentEntity.getClient().getIdClient() )!= null)
 			return Optional.ofNullable( null );
 		else*/
+
 			return Optional.ofNullable( rentRepository.save( rentEntity ));
 	}
+
 
 	@Override
 	public Optional<RentEntity> update( RentEntity rentEntity) {

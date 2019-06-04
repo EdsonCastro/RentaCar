@@ -25,7 +25,7 @@ public class ClientEntity {
 	private String dni;
 
 	private String name;
-	
+
 	@OneToMany(mappedBy = "client")
 	private Set<RentEntity> clientsRents = new TreeSet<>();
 }

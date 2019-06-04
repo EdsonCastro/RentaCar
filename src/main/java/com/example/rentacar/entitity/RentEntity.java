@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.example.rentacar.dto.CarDto;
+import com.example.rentacar.dto.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -32,10 +34,12 @@ public class RentEntity {
 	private String endDate;
 
 
-	@ManyToOne	(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="client_id_client")
 	private ClientEntity client;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="car_id_car")
 	private CarEntity car;
 	
 
