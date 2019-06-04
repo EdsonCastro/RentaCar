@@ -1,7 +1,12 @@
 package com.example.rentacar.component;
 
+import com.example.rentacar.dto.CarDto;
+import com.example.rentacar.dto.ClientDto;
 import com.example.rentacar.dto.RentDto;
+import com.example.rentacar.entitity.CarEntity;
+import com.example.rentacar.entitity.ClientEntity;
 import com.example.rentacar.entitity.RentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,11 +16,17 @@ import java.util.List;
 @Component
 public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>{
 
+	@Autowired
+	private MapperService<CarEntity, CarDto> mapperCarService;
+
+	@Autowired
+	private MapperService<ClientEntity, ClientDto> mapperServiceClient;
+
 	@Override
 	public RentEntity mapToEntity(RentDto rentDto) {
 			RentEntity rentEntity = new RentEntity();
-			rentEntity.setCar(rentDto.getCar());
-			rentEntity.setClient( rentDto.getClient( ));
+			rentEntity.setCar(mapperCarService.mapToEntity(rentDto.getCar()));
+			rentEntity.setClient(mapperServiceClient.mapToEntity(rentDto.getClient()));
 			rentEntity.setPrice( rentDto.getPrice() );
 			rentEntity.setStartDate( rentDto.getStartDate( ));
 			rentEntity.setEndDate( rentDto.getEndDate() );
@@ -32,8 +43,8 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 		while(iterator.hasNext()){
 			rentDto = iterator.next();
 			RentEntity rentEntity = new RentEntity();
-			rentEntity.setCar(rentDto.getCar());
-			rentEntity.setClient( rentDto.getClient( ));
+			rentEntity.setCar(mapperCarService.mapToEntity(rentDto.getCar()));
+			rentEntity.setClient(mapperServiceClient.mapToEntity(rentDto.getClient()));
 			rentEntity.setPrice( rentDto.getPrice() );
 			rentEntity.setStartDate( rentDto.getStartDate( ));
 			rentEntity.setEndDate( rentDto.getEndDate() );

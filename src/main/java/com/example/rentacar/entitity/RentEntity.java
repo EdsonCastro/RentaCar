@@ -3,13 +3,8 @@ package com.example.rentacar.entitity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -37,10 +32,10 @@ public class RentEntity {
 	private String endDate;
 
 
-	@ManyToOne	
+	@ManyToOne	(cascade = CascadeType.PERSIST)
 	private ClientEntity client;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private CarEntity car;
 	
 

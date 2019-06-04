@@ -3,7 +3,10 @@ package com.example.rentacar.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.rentacar.dao.CarRepository;
+import com.example.rentacar.dao.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.example.rentacar.dao.RentRepository;
@@ -11,6 +14,12 @@ import com.example.rentacar.entitity.RentEntity;
 
 @Component
 public class RentSeriviceImpl implements RentService{
+
+	@Autowired
+	private CarRepository carRepository;
+
+	@Autowired
+	private ClientRepository clientRepository;
 
 	@Autowired
 	private RentRepository rentRepository;
@@ -28,7 +37,11 @@ public class RentSeriviceImpl implements RentService{
 
 	@Override
 	public Optional<RentEntity> save(RentEntity rentEntity) {
-		return Optional.ofNullable( rentRepository.saveAndFlush( rentEntity ) );
+		/*if ( (carRepository.findById( rentEntity.getCar().getIdCar() ) != null)
+			|| clientRepository.findById( rentEntity.getClient().getIdClient() )!= null)
+			return Optional.ofNullable( null );
+		else*/
+			return Optional.ofNullable( rentRepository.save( rentEntity ));
 	}
 
 	@Override

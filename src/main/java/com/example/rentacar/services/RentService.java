@@ -7,6 +7,8 @@ import com.example.rentacar.entitity.RentEntity;
 
 public interface RentService {
 
+
+
 	List <RentEntity> findAll(String name);
 
 	Optional<RentEntity> findId(Integer id);

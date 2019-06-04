@@ -28,9 +28,9 @@ public class RatePriceEntity {
 
 	private Integer price;
 
-	private Date startDate;
+	private String startDate;
 
-	private Date endDate;
+	private String endDate;
 
 	private Integer activeRate;
 
