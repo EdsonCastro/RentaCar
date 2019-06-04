@@ -1,8 +1,6 @@
 package com.example.rentacar.component;
 
-import com.example.rentacar.dto.CarDto;
 import com.example.rentacar.dto.RentDto;
-import com.example.rentacar.entitity.CarEntity;
 import com.example.rentacar.entitity.RentEntity;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +19,7 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 			rentEntity.setPrice( rentDto.getPrice() );
 			rentEntity.setStartDate( rentDto.getStartDate( ));
 			rentEntity.setEndDate( rentDto.getEndDate() );
+		System.out.println("Entra en mapToEntity de Rent.");
 		return rentEntity;
 	}
 
@@ -40,6 +39,7 @@ public class MapperServiceRentImpl implements MapperService<RentEntity, RentDto>
 			rentEntity.setEndDate( rentDto.getEndDate() );
 			rentEntityList.add(rentEntity);
 		}
+		System.out.println("Entra en mapToEntity de Rent.");
 		return rentEntityList;
 	}
 

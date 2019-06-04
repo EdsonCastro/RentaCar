@@ -2,14 +2,11 @@ package com.example.rentacar.entitity;
 
 import java.util.Set;
 import java.util.TreeSet;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Data
@@ -21,8 +18,9 @@ public class ClientEntity {
 	public ClientEntity(){}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementClient", strategy = "increment")
+	private Integer idClient;
 
 	private String dni;
 

@@ -14,8 +14,10 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 	@Override
 	public CarEntity mapToEntity(CarDto carDto) {
 		CarEntity carEntity = new CarEntity();
+		//carEntity.setId( carDto.getId() );
 		carEntity.setCarPlate(carDto.getCarPlate());
 		carEntity.setRegistrationYear(carDto.getRegistrationYear());
+		System.out.println("Entra en mapToEntity de Car.");
 		return carEntity;
 	}
 
@@ -28,16 +30,18 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 		while(iterator.hasNext()){
 			carDto = iterator.next();
 			CarEntity carEntity = new CarEntity();
+			//carEntity.setId( carDto.getId() );
 			carEntity.setCarPlate(carDto.getCarPlate());
 			carEntity.setRegistrationYear(carDto.getRegistrationYear());
 			carEntityList.add(carEntity);
 		}
+		System.out.println("Entra en mapToEntity de Car.");
 		return carEntityList;
 	}
 
 	@Override
 	public CarDto mapToDto(CarEntity carEntity) {
-		CarDto carDto = new CarDto(carEntity.getId(), carEntity.getCarPlate(), carEntity.getRegistrationYear());
+		CarDto carDto = new CarDto(carEntity.getIdCar(), carEntity.getCarPlate(), carEntity.getRegistrationYear());
 		return carDto;
 	}
 
@@ -45,7 +49,7 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 	public List<CarDto> mapToDto(List<CarEntity> cartEntityList) {
 		List<CarDto> carDtoList = new ArrayList<CarDto>();
 		cartEntityList.forEach(item->{
-			carDtoList.add(new CarDto(item.getId(),item.getCarPlate(),item.getRegistrationYear()));
+			carDtoList.add(new CarDto(item.getIdCar(),item.getCarPlate(),item.getRegistrationYear()));
 		});
 		return carDtoList;
 	}

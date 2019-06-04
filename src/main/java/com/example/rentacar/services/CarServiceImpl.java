@@ -1,9 +1,7 @@
 package com.example.rentacar.services;
 
 import com.example.rentacar.dao.CarRepository;
-import com.example.rentacar.dao.ClientRepository;
 import com.example.rentacar.entitity.CarEntity;
-import com.example.rentacar.entitity.ClientEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +32,7 @@ public class CarServiceImpl implements CarService{
 	
 	@Override
 	public Optional<CarEntity> update( CarEntity carEntity) {
+
 		return Optional.ofNullable(carRepository.saveAndFlush(carEntity));
 	}
 

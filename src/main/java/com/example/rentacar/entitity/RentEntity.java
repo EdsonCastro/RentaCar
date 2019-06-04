@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Data
@@ -23,7 +24,8 @@ public class RentEntity {
 	public RentEntity(){};
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="incrementRent", strategy = "increment")
 	private Integer id;
 	
 	private Double price;

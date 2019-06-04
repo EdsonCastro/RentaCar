@@ -18,6 +18,7 @@ public class MapperServiceRatePriceImpl implements MapperService<RatePriceEntity
 		ratePriceEntity.setPrice(ratePriceDto.getPrice());
 		ratePriceEntity.setStartDate( ratePriceDto.getStartRate());
 		ratePriceEntity.setEndDate( ratePriceDto.getEndRate());
+		System.out.println("Entra en mapToEntity de Rate.");
 		return ratePriceEntity;
 	}
 
@@ -34,6 +35,7 @@ public class MapperServiceRatePriceImpl implements MapperService<RatePriceEntity
 			ratePriceEntity.setEndDate( ratePriceDto.getEndRate());
 			ratePriceEntityList.add(ratePriceEntity);			
 		}
+		System.out.println("Entra en mapToEntity de Rate.");
 		return ratePriceEntityList;
 	}
 

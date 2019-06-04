@@ -24,6 +24,7 @@ public class RatePriceController {
 
 	@Autowired
 	private RatePriceService RatePriceService;
+
 	@Autowired
 	private MapperService<RatePriceEntity, RatePriceDto> mapperRentPriceService;
 
@@ -70,12 +71,4 @@ public class RatePriceController {
 		//		.orElse(ResponseEntity.notFound().build());
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-		/*RatePriceEntity ratePriceEntity = ratePriceRepository.getOne(id);
-		if (ratePriceEntity == null){
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-		}
-		else{
-			ratePriceRepository.delete(ratePriceEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);
-		}*/
 }

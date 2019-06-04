@@ -28,11 +28,12 @@ public class ClientController {
 
 	@Autowired
 	private ClientService clientService;
+
 	@Autowired
 	private MapperService<ClientEntity, ClientDto> mapperServiceClient;
 
 
-	//FIX Sentencia SQL
+
 	@GetMapping()
 	public List<ClientDto> findAll(@RequestParam (value = "name", required = false) String name){
 		return clientService.findAllClients(name)
@@ -68,7 +69,7 @@ public class ClientController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	//FIX LO DE LA EXCEPCION
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id){
 		clientService.deleteClient(id);

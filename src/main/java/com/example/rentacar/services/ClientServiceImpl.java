@@ -36,8 +36,8 @@ public class ClientServiceImpl implements ClientService{
 	}	
 	
 	@Override
-	public Optional<ClientEntity> updateClient( ClientEntity clientEntit) {
-		return Optional.ofNullable(clientRepository.saveAndFlush(clientEntit));
+	public Optional<ClientEntity> updateClient( ClientEntity clientEntity) {
+		return Optional.ofNullable(clientRepository.saveAndFlush(clientEntity));
 	}
 
 	@Override

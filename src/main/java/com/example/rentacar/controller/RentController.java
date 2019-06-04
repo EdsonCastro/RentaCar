@@ -63,17 +63,6 @@ public class RentController {
 		// 		map(ResponseEntity::ok)
 		//		.orElse(ResponseEntity.notFound().build());
 		return new ResponseEntity<String>(HttpStatus.OK);
-
-		/*Optional<RentEntity> optionalRentEntity = rentService.findRentId(id);
-		if (!optionalRentEntity.isPresent())
-		{	
-			RentEntity rentEntity = optionalRentEntity.get();
-			rentService.deleteRent(rentEntity);
-			return new ResponseEntity<String>(HttpStatus.OK);
-		}
-		else{
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-		}*/
 	}
 	
 }

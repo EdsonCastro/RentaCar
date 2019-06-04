@@ -16,7 +16,7 @@ public class RatePriceDto {
 	
 	private Integer price;
 	
-	private Date startRate;
+	private String startRate;
 	
-	private Date endRate;
+	private String endRate;
 }

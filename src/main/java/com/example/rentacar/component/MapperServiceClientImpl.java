@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.rentacar.dto.ClientDto;
 import com.example.rentacar.entitity.ClientEntity;
-import com.example.rentacar.entitity.RentEntity;
+
 
 @Component
 public class MapperServiceClientImpl implements MapperService<ClientEntity, ClientDto>{
@@ -18,6 +18,7 @@ public class MapperServiceClientImpl implements MapperService<ClientEntity, Clie
 		ClientEntity clientEntity = new ClientEntity();
 		clientEntity.setName(clientDto.getName());
 		clientEntity.setDni(clientDto.getDni());
+		System.out.println("Entra en mapToEntity de Cliente.");
 		return clientEntity;
 	}
 
@@ -34,19 +35,20 @@ public class MapperServiceClientImpl implements MapperService<ClientEntity, Clie
 			clientEntity.setDni(clientDto.getDni());
 			clientEntityList.add(clientEntity);
 		}
+		System.out.println("Entra en mapToEntity de Cliente.");
 		return clientEntityList;
 	}
 
 	@Override
 	public ClientDto mapToDto(ClientEntity clientEntity) {
-		return (new ClientDto(clientEntity.getId(),clientEntity.getDni(),clientEntity.getName()));
+		return (new ClientDto(clientEntity.getIdClient(),clientEntity.getDni(),clientEntity.getName()));
 	}
 
 	@Override
 	public List<ClientDto> mapToDto(List<ClientEntity> clientEntityList) {
 		List<ClientDto> clientDtoList = new ArrayList<ClientDto>();
 		clientEntityList.forEach(item->{
-			clientDtoList.add(new ClientDto(item.getId(),item.getDni(),item.getName()));
+			clientDtoList.add(new ClientDto(item.getIdClient(),item.getDni(),item.getName()));
 		});
 		return clientDtoList;
 	}
