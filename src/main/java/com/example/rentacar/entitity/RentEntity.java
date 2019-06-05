@@ -34,11 +34,11 @@ public class RentEntity {
 	private String endDate;
 
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="client_id_client")
 	private ClientEntity client;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="car_id_car")
 	private CarEntity car;
 	

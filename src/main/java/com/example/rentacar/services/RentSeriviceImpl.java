@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.example.rentacar.dao.CarRepository;
 import com.example.rentacar.dao.ClientRepository;
+import com.example.rentacar.entitity.CarEntity;
 import com.example.rentacar.entitity.ClientEntity;
 import com.mysql.cj.xdevapi.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,14 @@ public class RentSeriviceImpl implements RentService{
 
 	@Override
 	public Optional<RentEntity> save(RentEntity rentEntity) {
-		/*if ( (carRepository.findById( rentEntity.getCar().getIdCar() ) != null)
-			|| clientRepository.findById( rentEntity.getClient().getIdClient() )!= null)
-			return Optional.ofNullable( null );
-		else*/
+		//Optional<CarEntity> OpCarEntity = carRepository.findById( rentEntity.getCar().getIdCar());
+		//Optional<ClientEntity> OpClientEntity =  clientRepository.findById( rentEntity.getClient().getIdClient() );
+
+		//System.out.println("miau: "+OpCarEntity.get()+" miau" );
+		//System.out.println("miau: "+OpClientEntity.get()+" miau" );
+
+		System.out.println("miau: "+rentEntity.getCar().getIdCar()+" miau" );
+		System.out.println("miau: "+rentEntity.getClient().getIdClient()+" miau" );
 
 			return Optional.ofNullable( rentRepository.save( rentEntity ));
 	}
