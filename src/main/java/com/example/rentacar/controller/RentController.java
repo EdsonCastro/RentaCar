@@ -44,12 +44,10 @@ public class RentController {
 	@PostMapping()
 	public ResponseEntity<RentDto> post(@RequestBody RentDto rentDto){
 
-		System.out.println("miau: "+rentDto.getCar()+" miau" );
-		System.out.println("miau: "+rentDto.getClient()+" miau" );
 		return rentService.save(mapperRentService.mapToEntity(rentDto))
 				.map(mapperRentService::mapToDto)
 				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+				.orElse(ResponseEntity.badRequest().build());
 	}
 	
 	@PutMapping

@@ -14,7 +14,7 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 	@Override
 	public CarEntity mapToEntity(CarDto carDto) {
 		CarEntity carEntity = new CarEntity();
-		//carEntity.setId( carDto.getId() );
+		carEntity.setIdCar( carDto.getId() );
 		carEntity.setCarPlate(carDto.getCarPlate());
 		carEntity.setRegistrationYear(carDto.getRegistrationYear());
 		System.out.println("Entra en mapToEntity de Car.");
@@ -30,7 +30,7 @@ public class MapperServiceCarImpl implements MapperService<CarEntity, CarDto>{
 		while(iterator.hasNext()){
 			carDto = iterator.next();
 			CarEntity carEntity = new CarEntity();
-			//carEntity.setId( carDto.getId() );
+			carEntity.setIdCar( carDto.getId() );
 			carEntity.setCarPlate(carDto.getCarPlate());
 			carEntity.setRegistrationYear(carDto.getRegistrationYear());
 			carEntityList.add(carEntity);

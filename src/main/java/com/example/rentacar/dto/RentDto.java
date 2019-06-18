@@ -7,6 +7,7 @@ import com.example.rentacar.entitity.ClientEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -19,9 +20,10 @@ public class RentDto {
 
 	private Integer id;
 
-	private CarEntity car;
+	@NotNull(message =  "El campo car es nulo.")
+	private CarDto car;
 
-	private ClientEntity client;
+	private ClientDto client;
 	
 	private Double price;
 	

@@ -16,6 +16,7 @@ public class MapperServiceClientImpl implements MapperService<ClientEntity, Clie
 	@Override
 	public ClientEntity mapToEntity(ClientDto clientDto) {
 		ClientEntity clientEntity = new ClientEntity();
+		clientEntity.setIdClient(clientDto.getId());
 		clientEntity.setName(clientDto.getName());
 		clientEntity.setDni(clientDto.getDni());
 		System.out.println("Entra en mapToEntity de Cliente.");
@@ -31,6 +32,7 @@ public class MapperServiceClientImpl implements MapperService<ClientEntity, Clie
 		while(iterator.hasNext()){
 			clientDto = iterator.next();
 			ClientEntity clientEntity = new ClientEntity();
+			clientEntity.setIdClient(clientDto.getId());
 			clientEntity.setName(clientDto.getName());
 			clientEntity.setDni(clientDto.getDni());
 			clientEntityList.add(clientEntity);

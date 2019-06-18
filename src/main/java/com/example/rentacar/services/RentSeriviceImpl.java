@@ -41,16 +41,15 @@ public class RentSeriviceImpl implements RentService{
 
 	@Override
 	public Optional<RentEntity> save(RentEntity rentEntity) {
-		//Optional<CarEntity> OpCarEntity = carRepository.findById( rentEntity.getCar().getIdCar());
-		//Optional<ClientEntity> OpClientEntity =  clientRepository.findById( rentEntity.getClient().getIdClient() );
+		Optional<CarEntity> carEntity = carRepository.findById( rentEntity.getCar().getIdCar());
+		Optional<ClientEntity> clientEntity =  clientRepository.findById( rentEntity.getClient().getIdClient() );
 
-		//System.out.println("miau: "+OpCarEntity.get()+" miau" );
-		//System.out.println("miau: "+OpClientEntity.get()+" miau" );
 
-		System.out.println("miau: "+rentEntity.getCar().getIdCar()+" miau" );
-		System.out.println("miau: "+rentEntity.getClient().getIdClient()+" miau" );
-
+		if (carEntity.isPresent() && clientEntity.isPresent() && !findId(rentEntity.getId()).isPresent())
 			return Optional.ofNullable( rentRepository.save( rentEntity ));
+		else
+			return Optional.empty();
+
 	}
 
 
