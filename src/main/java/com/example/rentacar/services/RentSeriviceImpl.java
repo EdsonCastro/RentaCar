@@ -43,9 +43,10 @@ public class RentSeriviceImpl implements RentService{
 	public Optional<RentEntity> save(RentEntity rentEntity) {
 		Optional<CarEntity> carEntity = carRepository.findById( rentEntity.getCar().getIdCar());
 		Optional<ClientEntity> clientEntity =  clientRepository.findById( rentEntity.getClient().getIdClient() );
+		Optional<RentEntity> rentEntityinBd = findId(rentEntity.getId());
 
 
-		if (carEntity.isPresent() && clientEntity.isPresent() && !findId(rentEntity.getId()).isPresent())
+		if (carEntity.isPresent() && clientEntity.isPresent() && rentEntityinBd.isPresent())
 			return Optional.ofNullable( rentRepository.save( rentEntity ));
 		else
 			return Optional.empty();
