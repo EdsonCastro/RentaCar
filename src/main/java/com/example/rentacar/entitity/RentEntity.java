@@ -1,6 +1,7 @@
 package com.example.rentacar.entitity;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -28,10 +29,12 @@ public class RentEntity {
 	private Double price;
 	
 	//private Date startDate;
-	private String startDate;
+	private LocalDateTime startDate;
+	//private String startDate;
 	
 	//private Date endDate;
-	private String endDate;
+	private LocalDateTime endDate;
+	//private String endDate;
 
 
 	@ManyToOne(cascade = CascadeType.DETACH)
